@@ -8,19 +8,22 @@ categories: deepas
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 # Contents
-- [Introduction](#Introduction)
-- [Setup](#Setup)
-  - [linux OS](#linux-OS)
-- [Information](#Information)
-  - [CUDA version](#CUDA-version)
-  - [GPU supported](#GPU-supported)
-  - [Supported ML/DL model](#Supported-ML/DL-model)
+- [introduction](#introduction)
+- [setup](#setup)
+  - [linux os](#linux-os)
+- [information](#information)
+  - [cuda version](#cuda-version)
+  - [gpu supported](#gpu-supported)
+  - [supported ml/dl model](#supported-ml/dl-model)
   - [hyperparameter search space format](#hyperparameter-search-space-format)
     - [bayesian](#bayesian)
     - [grid](#grid)
-  - [DNN hyperparameter tuning](#DNN-hyperparameter-tuning)
-    - [DNN hyperparameter](#DNN-hyperparameter)
+  - [dnn hyperparameter tuning](#dnn-hyperparameter-tuning)
+    - [dnn hyperparameter](#dnn-hyperparameter)
   - [result](#result)
 - [example](#example)
   - [import](#import)
@@ -28,13 +31,13 @@ categories: deepas
   - [loading dataset](#loading-dataset)
   - [data preprocessing](#data-preprocessing)
   - [hyperparamter tuning](#hyperparamter-tuning)
-  - [Build Model](#Build-Model)
-  - [Training](#Training)
-  - [Evaluation](#Evaluation)
-  - [eXplainable AI](#eXplainable-AI)
-- [User Guide](#User-Guide)
+  - [build model](#build-model)
+  - [training](#training)
+  - [evaluation](#evaluation)
+  - [explainable ai](#explainable-ai)
+- [user guide](#user-guide)
   - [`get_base_path`](#get_base_path)
-  - [`Config`](#Config)
+  - [`config`](#config)
   - [`read_data`](#read_data)
   - [`split_label`](#split_label)
   - [`check_na`](#check_na)
@@ -54,11 +57,11 @@ categories: deepas
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
     
-# Introduction 
+# introduction 
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
-# Setup
-## linux OS 
+# setup
+## linux os 
 ```shell
 $ conda create -n [env_name] python=3.7 -y
 $ conda activate [env_name]
@@ -68,12 +71,12 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 [optional] $ sh install.sh
 
 ```
-# Information
-## CUDA version 
+# information
+## cuda version 
 - The appropriate version of CUDA is `11.1`. So, Please check it out.
-## GPU supported 
+## gpu supported 
 - Usage GPU of LightGBM is not supported.
-## Supported ML/DL model 
+## supported ml/dl model 
 - CatBoost
 - LightGBM
 - XGBoost
@@ -101,7 +104,7 @@ bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값
 }
 ```
 grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
-## DNN hyperparameter tuning
+## dnn hyperparameter tuning
 DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값에 따라 `dropout` 값과 `activation_function` 값 값의 개수를 `n_layers`의 값과 일치시켜야 합니다.
 ```python
 {
@@ -113,7 +116,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
     'activation_function': ['ReLU', 'ReLU', 'ReLU'] # 3개
 }
 ```
-### DNN hyperparameter
+### dnn hyperparameter
 - DNN의 경우 다음의 하이퍼파라미터를 조정할 수 있습니다. **아래 명시된 이름 이외의 다른 명칭은 쓸 수 없습니다.**
   - `optimizer`
     - 딥러닝의 최적화 알고리즘으로서, 가능한 값은 다음과 같습니다.
@@ -234,7 +237,7 @@ params = tune_model(
     dnn_config=config
 )
 ```
-## Build Model
+## build model
 - 하이퍼파라미터 튜닝 여부와 상관없이 deepas의 모든 ML/DL 모델은 초기 구성이 필요합니다. 
 - 하이퍼파라미터 튜닝을 수행했다면 best parameter를 통해 자동으로 구성된 model 변수를 이용할 수 있습니다.
 - 하이퍼파라미터 튜닝을 수행하지 않았다면 유저가 직접 지정한 custom parameter를 이용하여 모델을 구성하게 됩니다.
@@ -263,7 +266,7 @@ clf = create_model(
 )
 ```
 
-## Training
+## training
 - 모델의 학습을 위해 `train_model` 메소드를 호출합니다.
 - 학습이 끝난 후에 반환되는 값은 예측값과 예측확률값, 학습이 완료된 모델입니다.
 - 예측값과 예측확률값은 모델의 성능 평가에서 활용됩니다.
@@ -281,7 +284,7 @@ y_pred, y_probas, trained_model = train_model(
 )
 ```
 
-## Evaluation
+## evaluation
 - 학습이 끝난 모델에 대한 성능 평가 지표를 확인할 수 있습니다.
 - `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 주요 지표들은 다음과 같습니다.
   - True Positive(TP)의 개수
@@ -304,7 +307,7 @@ report = evaluate_model(
 )
 ```
 
-## eXplainable AI
+## explainable ai
 - tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, XAI 기법을 사용할 수 있습니다.
 - 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 제공합니다.
 - DNN에서 SHAP을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
@@ -315,7 +318,7 @@ explainer = exp.FeatureImportance(ai_method=MODEL, trained_model=clf, xai_method
 exp_result = explainer.explain(X_train, y_train, RESULT_PATH, feature_names=list(X_train_features))
 ```
 
-# User Guide
+# user guide
 ## `get_base_path`
 ML/DL 결과를 저장할 기본 경로를 반환
 ```python
