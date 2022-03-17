@@ -89,9 +89,9 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 
 ## Hyperparameter search space format 
 - 지원하는 모델 중 ML 모델은 각 모델별로 해당 모델에 적합한 하이퍼파라미터를 입력해야 합니다. 각 모델별 Documentation을 참고하시기 바랍니다.
-- [CatBoost Documentation] 참고
-- [LightGBM Documentation] 참고
-- [XGBoost Documentation] 참고
+- [CatBoost Documentation](#https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier)
+- [LightGBM Documentation](#https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html)
+- [XGBoost Documentation](#https://xgboost.readthedocs.io/en/stable/parameter.html)
 
 ### bayesian
 
