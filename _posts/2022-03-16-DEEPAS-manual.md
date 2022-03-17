@@ -82,7 +82,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 
 ## GPU supported 
 - Usage GPU of LightGBM is not supported.
-
+- GPU is available in CatBoost, XGBoost and DNN.
 ## Supported ML/DL model 
 - CatBoost
 - LightGBM
@@ -106,7 +106,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 ```
 
 bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
-
+다만, 특정 하이퍼파라미터를 `[3]`과 같이 grid search 
 ### grid
 
 ```python
@@ -422,7 +422,7 @@ target 변수와 데이터를 분리
 split_label(
     data: DataFrame,
     target: str
-)-> (DataFrame, DataFrame)
+) -> (DataFrame, DataFrame)
 ```
 
 #### Parameters
