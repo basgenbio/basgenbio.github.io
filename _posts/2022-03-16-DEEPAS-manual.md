@@ -233,7 +233,7 @@ X_train_np, X_train_features = convert_df_to_np(X_train_df)
 ```
 
 ## hyperparamter tuning
-- 하이퍼파라미터 튜닝을 위해서는 deepas의 `tune` 내의 메소드를 호출합니다. `tune_model을` 호출하는 즉시 tuning을 수행하기 위한 머신러닝/딥러닝 모델을 생성하고 tuning 작업까지 완료되며, 그 결과를 파일로 저장함과 동시에 사용자에게 결과를 반환합니다.
+- 하이퍼파라미터 튜닝을 위해서는 deepas의 `tune` 내의 메소드를 호출합니다. `tune_model`을 호출하는 즉시 tuning을 수행하기 위한 머신러닝/딥러닝 모델을 생성하고 tuning 작업까지 완료되며, 그 결과를 파일로 저장함과 동시에 사용자에게 결과를 반환합니다.
 - 지원하는 하이퍼파라미터 튜닝 방식은 `grid`와 `bayesian`입니다. 
 - `grid`와 `bayesian` 모두 Optuna 패키지를 기반으로 합니다.
 - search space와 `n_iter`에 따라 학습 시간이 길어질 수 있습니다.
