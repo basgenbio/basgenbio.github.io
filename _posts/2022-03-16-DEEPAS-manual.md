@@ -684,9 +684,9 @@ evaluate_model(
 - `cat_dict_train`: default=`None`. target 변수가 categorical 또는 str 타입일 경우, `convert_feature_to_num` 메소드를 통해 변환되기 이전의 원래의 데이터 
 
 ## FeatureImportance
+XAI를 수행하기 위한 instance 생성
 
 ```python
-XAI를 수행하기 위한 instance 생성
 FeatureImportance(
     ai_method: str = 'dnn',
     trained_model=None,
