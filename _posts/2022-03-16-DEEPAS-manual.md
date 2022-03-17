@@ -45,6 +45,7 @@ categories: deepas
   - [`merge_data`](#merge_data)
   - [`convert_feature_to_num`](#convert_feature_to_num)
   - [`convert_df_to_np`](#convert_df_to_np)
+  - [`save`](#save)
   - [`tune_model`](#tune_model)
   - [`create_model`](#create_model)
     - [`predict`](#predict)
