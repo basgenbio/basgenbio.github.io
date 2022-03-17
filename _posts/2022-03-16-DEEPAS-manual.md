@@ -51,6 +51,7 @@ categories: deepas
     - [`predict`](#predict)
     - [`predict_proba`](#predict_proba)
   - [`train_model`](#train_model)
+  - [`get_metric`](#get_metric)
   - [`evaluate_model`](#evaluate_model)
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
@@ -702,6 +703,19 @@ train_model(
 - `result_path`: default=`None`. 학습된 모델을 저장할 경로를 지정
 - `epochs`: default=`100`. DNN에 해당하는 파라미터로서, DNN 모델의 학습 횟수를 지정
 - `dnn_config`: default=`None`. DNN 모델 학습 시 필요한 설정 정보
+
+## get_metric
+```python
+def get_metric(
+        y_val,
+        y_pred,
+        metric: str = f1_score
+)
+```
+#### Parameters
+- `y_val`: model의 예측 값
+- `y_pred`: model의 예측 확률값
+- `metric`: default=`f1_score`. 평가할 지표. 현재 f1_score만 가능  
 
 ## evaluate_model
 ML/DL 모델 평가 수행
