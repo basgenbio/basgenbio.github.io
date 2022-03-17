@@ -64,9 +64,11 @@ categories: deepas
 
 
 #Introduction
+
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
 # Setup
+
 ## Linux OS
 ```shell
 $ conda create -n [env_name] python=3.7 -y
@@ -86,6 +88,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 ## GPU supported 
 - Usage GPU of LightGBM is not supported.
 - GPU is available in CatBoost, XGBoost and DNN.
+
 ## Supported ML/DL model 
 - CatBoost
 - LightGBM
@@ -99,6 +102,9 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 - [XGBoost Documentation](https://xgboost.readthedocs.io/en/stable/parameter.html)
 
 ### bayesian
+- bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
+- 다만, 특정 하이퍼파라미터를 `[3]`과 같이 고정할 수 있습니다.
+- 숫자가 아닌 파라미터에 대해서 grid search 방식의 search space 형식을 따를 수 있습니다.
 
 ```python
 {
@@ -108,9 +114,10 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 }
 ```
 
-bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
-다만, 특정 하이퍼파라미터를 `[3]`과 같이 grid search 
+
+
 ### grid
+grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
 
 ```python
 {
@@ -120,10 +127,9 @@ bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값
 }
 ```
 
-grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
+
 
 ## DNN hyperparameter tuning
-
 DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값에 따라 `dropout` 값과 `activation_function` 값 값의 개수를 `n_layers`의 값과 일치시켜야 합니다.
 
 ```python
@@ -296,9 +302,9 @@ clf = create_model(
 
 ## training
 - 모델의 학습을 위해 `train_model` 메소드를 호출합니다.
-- 학습이 끝난 후에 반환되는 값은 예측값과 예측확률값, 학습이 완료된 모델입니다.
-- 예측값과 예측확률값은 모델의 성능 평가에서 활용됩니다.
-- 학습이 완료된 모델은 XAI 단계에서 활용됩니다.
+- 학습이 끝난 후에 반환되는 값은 예측값과 예측 확률값, 학습이 완료된 모델입니다.
+- 예측값과 예측 확률값은 모델의 성능 평가에 활용됩니다.
+- 학습이 완료된 모델은 모델 해석(XAI) 단계에서 활용됩니다.
 
 ```python
 y_pred, y_probas, trained_model = train_model(
@@ -315,7 +321,7 @@ y_pred, y_probas, trained_model = train_model(
 
 ## evaluation
 - 학습이 끝난 모델에 대한 성능 평가 지표를 확인할 수 있습니다.
-- `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 주요 지표들은 다음과 같습니다.
+- `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 제공되는 지표들은 다음과 같습니다.
   - True Positive(TP)의 개수
   - False Positive(FP)의 개수
   - True Negative(TN)의 개수
@@ -367,7 +373,7 @@ get_base_path(
 #### Parameters
 - `filepath`: 데이터셋 경로. 해당 경로를 통해 저장할 base path를 결정함
 - `model`: 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
-- `result_path`: default=`None`. 결과 파일들을 저장할 경로가 있다면 명시하여 base path로 지정함
+- `result_path`: default=`None`. 결과 파일을 저장할 경로가 있다면 해당 파라미터에 명시하여 base path로 지정함
 
 ## Config
 ML/DL 모델을 돌리기 위한 기본 설정으로, GPU 할당 및 DNN 설정을 위해 반드시 필요함
@@ -398,6 +404,7 @@ Config(
 
 ## set_device
 모델이 사용할 device 할당. 주로 GPU 할당 시 사용 
+
 ```python
 set_device(
     model: str,
@@ -606,6 +613,7 @@ convert_ts_to_df(
 
 ## convert_to_ts
 torch.Tensor 타입의 데이터를 적합한 타입의 데이터로 변환. PyTorch는 label과 data의 서로 다른 타입을 요구하며, 이를 처리하는 메소드
+
 ```python
 convert_to_ts(
     data = None,
@@ -614,8 +622,8 @@ convert_to_ts(
 ```
 
 #### Parameters
-- data: default=`None`
-- data_type: default=`None`
+- `data`: default=`None`
+- `data_type`: default=`None`
 
 ## save
 dict 타입의 데이터를 파일 형식으로 저장 및 pandas.DataFrame 타입의 데이터로 반환
@@ -658,6 +666,7 @@ save(
 
 ## save_model_object
 학습이 완료된 모델을 저장. CatBoost, LightGBM, XGBoost에 해당
+
 ```python
 save_model_object(
     model: str,
@@ -668,10 +677,10 @@ save_model_object(
 ```
 
 #### Parameters
-- model: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
-- model_object: CatBoost, LightGBM, XGBoost model object. 
-- result_path: 모델 파일을 저장할 경로 지정
-- save_model: default=`True`. True일 경우 모델을 저장
+- `model`: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
+- `model_object`: CatBoost, LightGBM, XGBoost model object. 
+- `result_path`: 모델 파일을 저장할 경로 지정
+- `save_model`: default=`True`. True일 경우 모델을 저장
 
 ## tune_model
 hyperparameter tuning 수행 및 결과 반환/파일 저장
@@ -782,7 +791,7 @@ train_model(
 - `X_train`: pandas.DataFrame 타입의 데이터
 - `y_train`: pandas.DataFrame 타입의 데이터
 - `X_val`: pandas.DataFrame 타입의 데이터
-- `save_model`: default=`False`. 학습된 모델을 저장하고자 할 경우 True로 설정
+- `save_model`: default=`False`. 학습된 모델을 저장하고자 할 경우 `True`로 설정
 - `result_path`: default=`None`. 학습된 모델을 저장할 경로를 지정
 - `epochs`: default=`100`. DNN에 해당하는 파라미터로서, DNN 모델의 학습 횟수를 지정
 - `dnn_config`: default=`None`. DNN 모델 학습 시 필요한 설정 정보
