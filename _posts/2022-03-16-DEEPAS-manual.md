@@ -9,13 +9,13 @@ categories: deepas
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 # Contents
-- [introduction](#introduction)
-- [setup](#setup)
-  - [linux os](#linux-os)
-- [information](#information)
-  - [cuda version](#cuda-version)
-  - [gpu supported](#gpu-supported)
-  - [supported ml/dl model](#supported-ml/dl-model)
+- [Introduction](#introduction)
+- [Setup](#setup)
+  - [Linux OS](#linux-os)
+- [Information](#information)
+  - [CUDA version](#cuda-version)
+  - [GPU supported](#gpu-supported)
+  - [Supported ML/DL model](#supported-ml/dl-model)
   - [hyperparameter search space format](#hyperparameter-search-space-format)
     - [bayesian](#bayesian)
     - [grid](#grid)
@@ -53,12 +53,14 @@ categories: deepas
   - [`evaluate_model`](#evaluate_model)
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
-    
+
+
 # Introduction
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
 # Setup
 ## Linux OS 
+
 ```shell
 $ conda create -n [env_name] python=3.7 -y
 $ conda activate [env_name]
@@ -66,17 +68,16 @@ $ conda install jupyter -y
 $ pip install deepas-1.0-py3-none-any.whl
 $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.whl
 [optional] $ sh install.sh
-
 ```
 
 # information
-## cuda version 
+## Cuda version 
 - The appropriate version of CUDA is `11.1`. So, Please check it out.
 
-## gpu supported 
+## GPU supported 
 - Usage GPU of LightGBM is not supported.
 
-## supported ml/dl model 
+## Supported ML/DL model 
 - CatBoost
 - LightGBM
 - XGBoost
