@@ -54,11 +54,10 @@ categories: deepas
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
     
-# introduction 
+# introduction
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
 # setup
-
 ## linux os 
 ```shell
 $ conda create -n [env_name] python=3.7 -y
@@ -71,19 +70,18 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 ```
 
 # information
-
 ## cuda version 
 - The appropriate version of CUDA is `11.1`. So, Please check it out.
-- 
+
 ## gpu supported 
 - Usage GPU of LightGBM is not supported.
-- 
+
 ## supported ml/dl model 
 - CatBoost
 - LightGBM
 - XGBoost
 - DNN (PyTorch-based)
-- 
+
 ## hyperparameter search space format 
 - 지원하는 모델 중 ML 모델은 각 모델별로 해당 모델에 적합한 하이퍼파라미터를 입력해야 합니다. 각 모델별 Documentation을 참고하시기 바랍니다.
 - [CatBoost Documentation] 참고
