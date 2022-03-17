@@ -35,8 +35,6 @@ categories: deepas
 - [User Guide](#user-guide)
   - [`get_base_path`](#get_base_path)
   - [`config`](#config)
-  - [`set_device`](#set_device)
-  - [`make_folder`](#make_folder)
   - [`read_data`](#read_data)
   - [`split_label`](#split_label)
   - [`check_na`](#check_na)
@@ -47,11 +45,7 @@ categories: deepas
   - [`merge_data`](#merge_data)
   - [`convert_feature_to_num`](#convert_feature_to_num)
   - [`convert_df_to_np`](#convert_df_to_np)
-  - [`convert_np_to_df`](#convert_np_to_df)
-  - [`convert_ts_to_df`](#convert_ts_to_df)
-  - [`convert_to_ts`](#convert_to_ts)
   - [`save`](#save)
-  - [`save_model_object`](#save_model_object)
   - [`tune_model`](#tune_model)
   - [`create_model`](#create_model)
     - [`predict`](#predict)
@@ -63,13 +57,14 @@ categories: deepas
     - [`explain`](#explain)
 
 
-#Introduction
-
+<h1>Introduction</h1>
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
+
 
 # Setup
 
-## Linux OS
+## Linux OS 
+
 ```shell
 $ conda create -n [env_name] python=3.7 -y
 $ conda activate [env_name]
@@ -88,7 +83,6 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 ## GPU supported 
 - Usage GPU of LightGBM is not supported.
 - GPU is available in CatBoost, XGBoost and DNN.
-
 ## Supported ML/DL model 
 - CatBoost
 - LightGBM
@@ -102,9 +96,6 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 - [XGBoost Documentation](https://xgboost.readthedocs.io/en/stable/parameter.html)
 
 ### bayesian
-- bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
-- 다만, 특정 하이퍼파라미터를 `[3]`과 같이 고정할 수 있습니다.
-- 숫자가 아닌 파라미터에 대해서 grid search 방식의 search space 형식을 따를 수 있습니다.
 
 ```python
 {
@@ -114,10 +105,9 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 }
 ```
 
-
-
+bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
+다만, 특정 하이퍼파라미터를 `[3]`과 같이 grid search 
 ### grid
-grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
 
 ```python
 {
@@ -127,9 +117,10 @@ grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값
 }
 ```
 
-
+grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
 
 ## DNN hyperparameter tuning
+
 DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값에 따라 `dropout` 값과 `activation_function` 값 값의 개수를 `n_layers`의 값과 일치시켜야 합니다.
 
 ```python
@@ -302,9 +293,9 @@ clf = create_model(
 
 ## training
 - 모델의 학습을 위해 `train_model` 메소드를 호출합니다.
-- 학습이 끝난 후에 반환되는 값은 예측값과 예측 확률값, 학습이 완료된 모델입니다.
-- 예측값과 예측 확률값은 모델의 성능 평가에 활용됩니다.
-- 학습이 완료된 모델은 모델 해석(XAI) 단계에서 활용됩니다.
+- 학습이 끝난 후에 반환되는 값은 예측값과 예측확률값, 학습이 완료된 모델입니다.
+- 예측값과 예측확률값은 모델의 성능 평가에서 활용됩니다.
+- 학습이 완료된 모델은 XAI 단계에서 활용됩니다.
 
 ```python
 y_pred, y_probas, trained_model = train_model(
@@ -321,7 +312,7 @@ y_pred, y_probas, trained_model = train_model(
 
 ## evaluation
 - 학습이 끝난 모델에 대한 성능 평가 지표를 확인할 수 있습니다.
-- `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 제공되는 지표들은 다음과 같습니다.
+- `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 주요 지표들은 다음과 같습니다.
   - True Positive(TP)의 개수
   - False Positive(FP)의 개수
   - True Negative(TN)의 개수
@@ -344,7 +335,7 @@ report = evaluate_model(
 ```
 
 ## explainable ai
-- tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, 모델 해석(XAI) 기법을 사용할 수 있습니다.
+- tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, XAI 기법을 사용할 수 있습니다.
 - 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 사용할 수 있습니다.
 - DNN에서 SHAP을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
 
@@ -373,7 +364,7 @@ get_base_path(
 #### Parameters
 - `filepath`: 데이터셋 경로. 해당 경로를 통해 저장할 base path를 결정함
 - `model`: 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
-- `result_path`: default=`None`. 결과 파일을 저장할 경로가 있다면 해당 파라미터에 명시하여 base path로 지정함
+- `result_path`: default=`None`. 결과 파일들을 저장할 경로가 있다면 명시하여 base path로 지정함
 
 ## Config
 ML/DL 모델을 돌리기 위한 기본 설정으로, GPU 할당 및 DNN 설정을 위해 반드시 필요함
@@ -401,35 +392,6 @@ Config(
 - `batch_size`: default=`64`. DNN 모델에서 사용할 batch의 크기
 - `n_epochs`: default=`20`. DNN 모델에서 사용할 학습의 횟수
 - `verbose`: default=`1`. DNN 모델에서 지정할 verbosity
-
-## set_device
-모델이 사용할 device 할당. 주로 GPU 할당 시 사용 
-
-```python
-set_device(
-    model: str,
-    device_type: str = None,
-    device_id: int = 0,
-    seed: int = 42
-) -> str
-```
-
-#### Parameters
-- model: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
-- device_type: default=`None->cpu`; `gpu`, `cpu`
-- device_id: default=`0`. gpu 번호를 지정
-- seed: default=`42`
-
-## make_foler
-경로에 따라 일련의 폴더 생성. 해당 경로에 존재하는 폴더의 경우 생성하지 않음 
-```python
-make_folder(
-    folderpath: str
-) -> None
-```
-
-#### Parameters
-- `folderpath`: 생성할 폴더의 경로
 
 ## read_data
 지정된 경로를 입력받아 데이터를 읽고 padnas.DataFrame 타입으로 반환
@@ -472,7 +434,7 @@ NaN값 확인
 
 ```python
 check_na(
-    data: DataFrame
+    data: DataFrame,
 ) -> (bool, int)
 ```
 
@@ -589,42 +551,6 @@ convert_df_to_np(
 #### Parameters
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
 
-## convert_np_to_df
-numpy.ndarray 타입의 데이터를 pandas.DataFrame 타입의 데이터로 변환
-```python
-convert_np_to_df(
-    np: ndarray
-) -> DataFrame
-```
-
-#### Parameters
-- `np`: numpy.ndarray 타입의 데이터
-
-## convert_ts_to_df
-torch.Tensor 타입의 데이터를 pandas.DataFrame 타입의 데이터로 변환
-```python
-convert_ts_to_df(
-    ts: Tensor
-) -> DataFrame
-```
-
-#### Parameters
-- `ts`: torch.Tensor 타입의 데이터
-
-## convert_to_ts
-torch.Tensor 타입의 데이터를 적합한 타입의 데이터로 변환. PyTorch는 label과 data의 서로 다른 타입을 요구하며, 이를 처리하는 메소드
-
-```python
-convert_to_ts(
-    data = None,
-    data_type: str = None
-) -> Tensor
-```
-
-#### Parameters
-- `data`: default=`None`
-- `data_type`: default=`None`
-
 ## save
 dict 타입의 데이터를 파일 형식으로 저장 및 pandas.DataFrame 타입의 데이터로 반환
 ```python
@@ -663,24 +589,6 @@ save(
 - `force_drop_last_row`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 마지막 행 강제 제거
 - `force_prohibit_drop_index_col`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 index column 강제 제거 방지. 해당 옵션은 `force_drop_index_col`보다 높은 우선순위를 가지며, `True`일 경우 `force_drop_index_col=False`가 됨
 - `force_prohibit_save`: default=`False`. 결과 파일 저장 방지 옵션
-
-## save_model_object
-학습이 완료된 모델을 저장. CatBoost, LightGBM, XGBoost에 해당
-
-```python
-save_model_object(
-    model: str,
-    model_object,
-    result_path: str,
-    save_model: bool = True,
-) -> None
-```
-
-#### Parameters
-- `model`: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
-- `model_object`: CatBoost, LightGBM, XGBoost model object. 
-- `result_path`: 모델 파일을 저장할 경로 지정
-- `save_model`: default=`True`. True일 경우 모델을 저장
 
 ## tune_model
 hyperparameter tuning 수행 및 결과 반환/파일 저장
@@ -791,7 +699,7 @@ train_model(
 - `X_train`: pandas.DataFrame 타입의 데이터
 - `y_train`: pandas.DataFrame 타입의 데이터
 - `X_val`: pandas.DataFrame 타입의 데이터
-- `save_model`: default=`False`. 학습된 모델을 저장하고자 할 경우 `True`로 설정
+- `save_model`: default=`False`. 학습된 모델을 저장하고자 할 경우 True로 설정
 - `result_path`: default=`None`. 학습된 모델을 저장할 경로를 지정
 - `epochs`: default=`100`. DNN에 해당하는 파라미터로서, DNN 모델의 학습 횟수를 지정
 - `dnn_config`: default=`None`. DNN 모델 학습 시 필요한 설정 정보
@@ -799,12 +707,11 @@ train_model(
 ## get_metric
 ```python
 def get_metric(
-    y_val,
-    y_pred,
-    metric: str = f1_score
+        y_val,
+        y_pred,
+        metric: str = f1_score
 )
 ```
-
 #### Parameters
 - `y_val`: model의 예측 값
 - `y_pred`: model의 예측 확률값
@@ -831,7 +738,7 @@ evaluate_model(
 - `cat_dict_train`: default=`None`. target 변수가 categorical 또는 str 타입일 경우, `convert_feature_to_num` 메소드를 통해 변환되기 이전의 원래의 데이터 
 
 ## FeatureImportance
-모델 해석(XAI)을 수행하기 위한 instance 생성
+XAI를 수행하기 위한 instance 생성
 
 ```python
 FeatureImportance(
@@ -844,14 +751,14 @@ FeatureImportance(
 ```
 
 #### Parameters
-- `ai_method`: default=`dnn`. 해석할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
+- `ai_method`: default=`dnn`. 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `trained_model`: default=`None`. 학습이 완료된 모델을 지정
 - `xai_method`: default=`shap`. 사용할 XAI 기법의 종류; `shap`, `permutation`, `intrinsic`
 - `device`: default=`None`. 사용할 장치의 종류; `gpu`, `cpu`
 - `gpu_id`: default=`None`. 사용할 장치가 `gpu`일 경우 gpu unit의 번호; `0`, `1`, ...
 
 ### explain
-모델 해석(XAI) 수행
+XAI를 수행
 
 ```python
 FeatureImportance.explain(
