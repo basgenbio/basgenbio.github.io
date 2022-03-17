@@ -723,7 +723,7 @@ FeatureImportance.explain(
 - `result_path`: XAI 결과를 저장할 경로를 지정
 - `category_name_dict`: default=`None`. target 변수가 categorical 또는 str 타입일 경우, `convert_feature_to_num` 메소드를 통해 변환되기 이전의 원래의 데이터
 - `feature_names`: default=`None`. 해석할 feature 리스트로서, `X` 파라미터의 feature의 리스트를 지정
-- `permutation_importance_n_repeats`: default=`150`. [sklearn.inspection.permutation_importance] 참고
+- `permutation_importance_n_repeats`: default=`150`. `FeatureImportance`에서 XAI 인스턴스 생성 시, `xai_method=permutation`일 경우 사용되는 파라미터로서 Permutation Importance 계산 시, iteration의 횟수. [sklearn.inspection.permutation_importance] 참고
 
 [CatBoost document]: https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier 
 [LightGBM document]: https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html
