@@ -334,7 +334,7 @@ report = evaluate_model(
 
 ## explainable ai
 - tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, XAI 기법을 사용할 수 있습니다.
-- 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 제공합니다.
+- 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 사용할 수 있습니다.
 - DNN에서 SHAP을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
 
 ```python
@@ -362,7 +362,7 @@ get_base_path(
 #### Parameters
 - `filepath`: 데이터셋 경로. 해당 경로를 통해 저장할 base path를 결정함
 - `model`: 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
-- `result_path`: 결과 파일들을 저장할 경로가 있다면 명시하여 base path로 지정함. default=`None`
+- `result_path`: default=`None`. 결과 파일들을 저장할 경로가 있다면 명시하여 base path로 지정함
 
 ## Config
 ML/DL 모델을 돌리기 위한 기본 설정으로, GPU 할당 및 DNN 설정을 위해 반드시 필요함
