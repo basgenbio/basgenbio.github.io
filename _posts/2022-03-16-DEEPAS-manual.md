@@ -549,6 +549,45 @@ convert_df_to_np(
 #### Parameters
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
 
+## save
+dict 타입의 데이터를 파일 형식으로 저장 및 pandas.DataFrame 타입의 데이터로 반환
+```python
+save(
+    path: str,
+    filename: str,
+    _dict: dict,
+    format: str = 'csv',
+    seperator: str = ',',
+    index: bool = False,
+    transpose_flag: bool = False,
+    column_name: list = None,
+    index_column: list = None,
+    index_column_name: str = None,
+    dtype: dict = None,
+    force_drop_index_col: bool = False,
+    force_drop_last_row: bool = False,
+    force_prohibit_drop_index_col: bool = False,
+    force_prohibit_save: bool = False
+) -> DataFrame
+```
+
+#### Parameters
+- `path`: 파일을 저장할 기본 경로
+- `filename`: 저장할 파일의 이름
+- `_dict`: dict 타입의 저장할 데이터
+- `format`: default=`csv`. 저장할 파일의 포맷
+- `seperator`: default=`,`. [pandas.DataFrame.to_csv] 참고
+- `index`: default=`False`. [pandas.DataFrame.to_csv] 참고
+- `transpose_flag`: default=`False`. 데이터는 내부적으로 pandas.DataFrame으로 변환됨. 변환된 pandas.DataFrame 타입의 데이터에 대하여 transpose 수행
+- `column_name`: default=`None`. 저장할 데이터의 column 이름을 명시적으로 지정
+- `index_column`: default=`None`. 저장할 데이터의 index를 명시적으로 지정
+- `index_column_name`: default=`None`. 저장할 데이터의 index에 해당하는 column의 이름
+- `dtype`: default=`None`. 저장할 데이터의 타입을 명시적으로 지정
+- `force_drop_index_col`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 index column 강제 제거
+- `force_drop_last_row`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 마지막 행 강제 제거
+- `force_prohibit_drop_index_col`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 index column 강제 제거 방지. 해당 옵션은 `force_drop_index_col`보다 높은 우선순위를 가지며, `True`일 경우 `force_drop_index_col=False`가 됨
+- `force_prohibit_save`: default=`False`. 결과 파일 저장 방지 옵션
+
 ## tune_model
 hyperparameter tuning 수행 및 결과 반환/파일 저장
 
@@ -725,6 +764,7 @@ FeatureImportance.explain(
 - `feature_names`: default=`None`. 해석할 feature 리스트로서, `X` 파라미터의 feature의 리스트를 지정
 - `permutation_importance_n_repeats`: default=`150`. `FeatureImportance`에서 XAI 인스턴스 생성 시, `xai_method=permutation`일 경우 사용되는 파라미터로서 Permutation Importance 계산 시, iteration의 횟수. [sklearn.inspection.permutation_importance] 참고
 
+
 [CatBoost document]: https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier 
 [LightGBM document]: https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html
 [XGBoost document]: https://xgboost.readthedocs.io/en/stable/parameter.html
@@ -737,3 +777,4 @@ FeatureImportance.explain(
 [sklearn.inspection.permutation_importance]: https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance
 [pytorch: Non-linear Activations]: https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity
 [pytorch: TORCH.OPTIM]: https://pytorch.org/docs/stable/optim.html#module-torch.optim
+[pandas.DataFrame.to_csv]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
