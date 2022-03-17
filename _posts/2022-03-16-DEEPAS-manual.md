@@ -8,20 +8,21 @@ categories: deepas
 <meta charset="utf-8">
 
 # Contents
+
 - [Introduction](#introduction)
 - [Setup](#setup)
-  - [Linux OS](##linux-os)
+  - [Linux OS](#linux-os)
 - [Information](#information)
-  - [CUDA version](##cuda-version)
-  - [GPU supported](##gpu-supported)
-  - [Supported ML/DL model](##supported-ml/dl-model)
-  - [hyperparameter search space format](##hyperparameter-search-space-format)
+  - [CUDA version](#cuda-version)
+  - [GPU supported](#gpu-supported)
+  - [Supported ML/DL model](#supported-ml/dl-model)
+  - [Hyperparameter search space format](#hyperparameter-search-space-format)
     - [bayesian](#bayesian)
     - [grid](#grid)
-  - [dnn hyperparameter tuning](#dnn-hyperparameter-tuning)
-    - [dnn hyperparameter](#dnn-hyperparameter)
+  - [DNN hyperparameter tuning](#dnn-hyperparameter-tuning)
+    - [DNN hyperparameter](#dnn-hyperparameter)
   - [result](#result)
-- [example](#example)
+- [Example](#example)
   - [import](#import)
   - [initial setting](#initial-setting)
   - [loading dataset](#loading-dataset)
@@ -31,7 +32,7 @@ categories: deepas
   - [training](#training)
   - [evaluation](#evaluation)
   - [explainable ai](#explainable-ai)
-- [user guide](#user-guide)
+- [User Guide](#user-guide)
   - [`get_base_path`](#get_base_path)
   - [`config`](#config)
   - [`read_data`](#read_data)
@@ -74,7 +75,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 
 # information
 
-## Cuda version 
+## CUDA version 
 - The appropriate version of CUDA is `11.1`. So, Please check it out.
 
 ## GPU supported 
@@ -86,7 +87,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 - XGBoost
 - DNN (PyTorch-based)
 
-## hyperparameter search space format 
+## Hyperparameter search space format 
 - 지원하는 모델 중 ML 모델은 각 모델별로 해당 모델에 적합한 하이퍼파라미터를 입력해야 합니다. 각 모델별 Documentation을 참고하시기 바랍니다.
 - [CatBoost Documentation] 참고
 - [LightGBM Documentation] 참고
@@ -116,7 +117,7 @@ bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값
 
 grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
 
-## dnn hyperparameter tuning
+## DNN hyperparameter tuning
 
 DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값에 따라 `dropout` 값과 `activation_function` 값 값의 개수를 `n_layers`의 값과 일치시켜야 합니다.
 
@@ -131,7 +132,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
 }
 ```
 
-### dnn hyperparameter
+### DNN hyperparameter
 - DNN의 경우 다음의 하이퍼파라미터를 조정할 수 있습니다. **아래 명시된 이름 이외의 다른 명칭은 쓸 수 없습니다.**
   - `optimizer`
     - 딥러닝의 최적화 알고리즘으로서, 가능한 값은 다음과 같습니다.
@@ -163,9 +164,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
 - binary classification, multi classification에 상관없이 모든 metric 파일은 class의 개수대로 생성됩니다.
 - `catboost_info` 파일의 경우 catboost 패키지 자체에서 생성됩니다.
 
-
-
-# example
+# Example
 
 ## import
 
@@ -345,7 +344,7 @@ exp_result = explainer.explain(X_train, y_train, RESULT_PATH, feature_names=list
 
 
 
-# user guide
+# User Guide
 
 ## get_base_path
 ML/DL 결과를 저장할 기본 경로를 반환
