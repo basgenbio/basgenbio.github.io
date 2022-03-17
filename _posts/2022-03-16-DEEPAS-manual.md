@@ -54,11 +54,11 @@ categories: deepas
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
     
-# introduction
+# Introduction
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
-# setup
-## linux os 
+# Setup
+## Linux OS 
 ```shell
 $ conda create -n [env_name] python=3.7 -y
 $ conda activate [env_name]
@@ -339,7 +339,7 @@ exp_result = explainer.explain(X_train, y_train, RESULT_PATH, feature_names=list
 
 # user guide
 
-## `get_base_path`
+## get_base_path
 ML/DL 결과를 저장할 기본 경로를 반환
 
 ```python
@@ -350,12 +350,12 @@ get_base_path(
 ) -> (str, str)
 ```
 
-**Parameters**
+#### Parameters
 - `filepath`: 데이터셋 경로. 해당 경로를 통해 저장할 base path를 결정함
 - `model`: 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `result_path`: 결과 파일들을 저장할 경로가 있다면 명시하여 base path로 지정함. default=`None`
 
-## `Config`
+## Config
 ML/DL 모델을 돌리기 위한 기본 설정으로, GPU 할당 및 DNN 설정을 위해 반드시 필요함
 
 ```python
@@ -372,7 +372,7 @@ Config(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `model`: default=`None`. 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `device`: default=`cpu`. 사용할 장치의 종류; `gpu`, `cpu`
 - `model_fn`: default=`None`. DNN 모델을 불러올 경로
@@ -382,7 +382,7 @@ Config(
 - `n_epochs`: default=`20`. DNN 모델에서 사용할 학습의 횟수
 - `verbose`: default=`1`. DNN 모델에서 지정할 verbosity
 
-## `read_data`
+## read_data
 지정된 경로를 입력받아 데이터를 읽고 padnas.DataFrame 타입으로 반환
 
 ```python
@@ -396,7 +396,7 @@ read_data(
 ) -> DataFrame
 ```
 
-**Parameters**
+#### Parameters
 - `filepath`: 데이터셋 경로
 - `seperator`: defulat=`\t`. 구분자
 - `low_memory`: default=`False`. [pandas.read_csv] 참고
@@ -404,7 +404,7 @@ read_data(
 - `index_column`: pandas.DataFrame의 tabular data에서 index로 설정할 column의 이름
 - `reset_index_flag`: default=`False`. pandas.DataFrame의 tabular data에서 index 초기화를 하고자 할 경우 `True`로 설정
 
-## `split_label`
+## split_label
 target 변수와 데이터를 분리
 
 ```python
@@ -414,11 +414,11 @@ split_label(
 )-> (DataFrame, DataFrame)
 ```
 
-**Parameters**
+#### Parameters
 - `data`: pandas.DataFrame 타입의 데이터
 - `target`: 예측 대상이 되는 target 변수
 
-## `check_na`
+## check_na
 NaN값 확인
 
 ```python
@@ -427,10 +427,10 @@ check_na(
 ) -> (bool, int)
 ```
 
-**Parameters**
+#### Parameters
 - `data`: pandas.DataFrame 타입의 데이터
 
-## `fill_na`
+## fill_na
 NaN값 처리
 
 ```python
@@ -442,13 +442,13 @@ fill_na(
 ) -> DataFrame
 ```
 
-**Parameters**
+#### Parameters
 - `data`: pandas.DataFrame 타입의 데이터
 - `fill_na`: default=`numpy.nan`. NaN값을 대체할 값
 - `del_na_by_col`: default=`False`. NaN값이 있는 열 일괄 제거 옵션
 - `del_na_by_row`: default=`False`. NaN값이 있는 행 일괄 제거 옵션
 
-## `split_data`
+## split_data
 train 데이터와 test 데이터를 분리
 
 ```python
@@ -461,14 +461,14 @@ split_data(
 ) -> (DataFrame, DataFrame, DataFrame, DataFrame)
 ```
 
-**Parameters**
+#### Parameters
 - `data`: pandas.DataFrame 타입의 데이터
 - `target`: 예측 대상이 되는 target 변수
 - `test_size`: default=`0.3`. [sklearn.model_selection.train_test_split] 참고
 - `stratify`: default=`None`. [sklearn.model_selection.train_test_split] 참고
 - `random_state`: default=`42`. [sklearn.model_selection.train_test_split] 참고 
 
-## `extract_column`
+## extract_column
 특정 column 추출
 
 ```python
@@ -479,12 +479,12 @@ def extract_column(
 ) -> DataFrame
 ```
 
-**Parameters**
+#### Parameters
 - `df`: pandas.DataFrame 타입의 데이터
 - `columns`: 추출할 column의 이름
 - `dtype`: default=`int`. [pandas.DataFrame.astype] 참고
 
-## `drop_column`
+## drop_column
 특정 column 제거
 
 ```python
@@ -494,11 +494,11 @@ drop_column(
 ) -> DataFrame
 ```
 
-**Parameters**
+#### Parameters
 - `df`: pandas.DataFrame 타입의 데이터
 - `columns`: 제거할 column의 이름
 
-## `merge_data`
+## merge_data
 pandas.DataFrame 타입의 두 tabular data를 결합
 
 ```python
@@ -510,13 +510,13 @@ merge_data(
 ) -> DataFrame
 ```
 
-**Parameters**
+#### Parameters
 - `X`: pandas.DataFrame 타입의 데이터
 - `y`: pandas.DataFrame 타입의 데이터
 - `axis`: default=`1`. [pandas.concat] 참고
 - `join`: default=`inner`. [pandas.concat] 참고
 
-## `convert_feature_to_num`
+## convert_feature_to_num
 category 타입의 데이터값을 숫자로 변환
 
 ```python
@@ -525,10 +525,10 @@ convert_feature_to_num(
 ) -> (DataFrame, DataFrame)
 ```
 
-**Parameters**
+#### Parameters
 - `feature`: category 또는 str 타입의 데이터가 있는 pandas.Series 또는 pandas.DataFrame 타입의 데이터
 
-## `convert_df_to_np`
+## convert_df_to_np
 pandas.DataFrame 타입의 데이터를 numpy.ndarray 타입의 데이터로 변환
 
 ```python
@@ -537,10 +537,10 @@ convert_df_to_np(
 ) -> (ndarray, list)
 ```
 
-**Parameters**
+#### Parameters
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
 
-## `tune_model`
+## tune_model
 hyperparameter tuning 수행
 
 ```python
@@ -561,7 +561,7 @@ tune_model(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `X_train`: pandas.DataFrame 타입의 데이터
 - `y_train`: pandas.DataFrame 타입의 데이터
 - `target`: 예측 대상이 되는 target 변수
@@ -576,7 +576,7 @@ tune_model(
 - `tuning_result`: default=`None`. 결과를 저장할 path
 - `dnn_config`: default=`None`. DNN에 대한 hyperparameter tuning시의 DNN 모델의 학습 횟수 
 
-## `create_model`
+## create_model
 ML/DL 모델 생성
 
 ```python
@@ -593,7 +593,7 @@ create_model(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `model`: 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `params`: default=`None`. 모델 하이퍼파라미터. 사용자 지정 custom hyperparameter 또는 hyperparameter tuning을 이용해 찾아낸 best hyperparameter가 이에 해당
 - `device`: default=`None`. 사용할 장치의 종류; `gpu`, `cpu`
@@ -604,7 +604,7 @@ create_model(
 - `y_train`: default=`None`. pandas.DataFrame 타입의 데이터
 - `hyperparameter_flag`: default=`False`. hyperparameter tuning 메소드 내부에서 사용하기 위한 파라미터
 
-### `predict`
+### predict
 ML/DL 모델을 이용하여 예측 수행
 
 ```python
@@ -613,10 +613,10 @@ model.predict(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `X_val`: pandas.DataFrame 타입의 데이터
 
-### `predict_proba`
+### predict_proba
 ML/DL 모델로부터 예측 확률 반환
 
 ```python
@@ -625,10 +625,10 @@ model.predict_proba(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `X_val`: pandas.DataFrame 타입의 데이터
 
-## `train_model`
+## train_model
 ML/DL 모델 학습 수행
 
 ```python
@@ -644,7 +644,7 @@ train_model(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `model`: `create_model` 메소드에 의해 생성된 모델
 - `X_train`: pandas.DataFrame 타입의 데이터
 - `y_train`: pandas.DataFrame 타입의 데이터
@@ -654,7 +654,7 @@ train_model(
 - `epochs`: default=`100`. DNN에 해당하는 파라미터로서, DNN 모델의 학습 횟수를 지정
 - `dnn_config`: default=`None`. DNN 모델 학습 시 필요한 설정 정보
 
-## `evaluate_model`
+## evaluate_model
 ML/DL 모델 평가 수행
 
 ```python
@@ -667,14 +667,14 @@ evaluate_model(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `model`: 학습이 완료된 모델
 - `X_val`: pandas.DataFrame 타입의 데이터
 - `y_val`: pandas.DataFrame 타입의 데이터
 - `result_path`: default=`None`. 모델 평가 결과를 저장할 경로를 지정
 - `cat_dict_train`: default=`None`. target 변수가 categorical 또는 str 타입일 경우, `convert_feature_to_num` 메소드를 통해 변환되기 이전의 원래의 데이터 
 
-## `FeatureImportance`
+## FeatureImportance
 
 ```python
 XAI를 수행하기 위한 instance 생성
@@ -687,14 +687,14 @@ FeatureImportance(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `ai_method`: default=`dnn`. 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `trained_model`: default=`None`. 학습이 완료된 모델을 지정
 - `xai_method`: default=`shap`. 사용할 XAI 기법의 종류; `shap`, `permutation`, `intrinsic`
 - `device`: default=`None`. 사용할 장치의 종류; `gpu`, `cpu`
 - `gpu_id`: default=`None`. 사용할 장치가 `gpu`일 경우 gpu unit의 번호; `0`, `1`, ...
 
-### `explain`
+### explain
 XAI를 수행
 
 ```python
@@ -708,7 +708,7 @@ FeatureImportance.explain(
 )
 ```
 
-**Parameters**
+#### Parameters
 - `X`: pandas.DataFrame 타입의 데이터
 - `y`: pandas.DataFrame 타입의 데이터
 - `result_path`: XAI 결과를 저장할 경로를 지정
