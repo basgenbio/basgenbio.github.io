@@ -63,14 +63,11 @@ categories: deepas
     - [`explain`](#explain)
 
 
-<h1>Introduction</h1>
+#Introduction
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
-
 # Setup
-
-## Linux OS 
-
+## Linux OS
 ```shell
 $ conda create -n [env_name] python=3.7 -y
 $ conda activate [env_name]
@@ -341,7 +338,7 @@ report = evaluate_model(
 ```
 
 ## explainable ai
-- tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, XAI 기법을 사용할 수 있습니다.
+- tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, 모델 해석(XAI) 기법을 사용할 수 있습니다.
 - 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 사용할 수 있습니다.
 - DNN에서 SHAP을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
 
@@ -468,7 +465,7 @@ NaN값 확인
 
 ```python
 check_na(
-    data: DataFrame,
+    data: DataFrame
 ) -> (bool, int)
 ```
 
@@ -798,6 +795,7 @@ def get_metric(
     metric: str = f1_score
 )
 ```
+
 #### Parameters
 - `y_val`: model의 예측 값
 - `y_pred`: model의 예측 확률값
@@ -824,7 +822,7 @@ evaluate_model(
 - `cat_dict_train`: default=`None`. target 변수가 categorical 또는 str 타입일 경우, `convert_feature_to_num` 메소드를 통해 변환되기 이전의 원래의 데이터 
 
 ## FeatureImportance
-XAI를 수행하기 위한 instance 생성
+모델 해석(XAI)을 수행하기 위한 instance 생성
 
 ```python
 FeatureImportance(
@@ -837,14 +835,14 @@ FeatureImportance(
 ```
 
 #### Parameters
-- `ai_method`: default=`dnn`. 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
+- `ai_method`: default=`dnn`. 해석할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `trained_model`: default=`None`. 학습이 완료된 모델을 지정
 - `xai_method`: default=`shap`. 사용할 XAI 기법의 종류; `shap`, `permutation`, `intrinsic`
 - `device`: default=`None`. 사용할 장치의 종류; `gpu`, `cpu`
 - `gpu_id`: default=`None`. 사용할 장치가 `gpu`일 경우 gpu unit의 번호; `0`, `1`, ...
 
 ### explain
-XAI를 수행
+모델 해석(XAI) 수행
 
 ```python
 FeatureImportance.explain(
