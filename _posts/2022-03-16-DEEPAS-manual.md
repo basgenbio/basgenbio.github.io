@@ -174,7 +174,7 @@ $ python
 ```
 
 ## initial setting
-config 메소드 작업은 반드시 필요하며, 예제 코드에 포함된 형식대로 작성해주시기 바랍니다.
+config 선언 작업은 반드시 필요하며, 예제 코드에 포함된 형식대로 작성해주시기 바랍니다.
 
 ```python
 config = Config(
