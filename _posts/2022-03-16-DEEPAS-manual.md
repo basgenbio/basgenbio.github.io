@@ -53,13 +53,11 @@ categories: deepas
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
 
----
 
-# Introduction
-
+<h1>Introduction</h1>
 deepas is an automated machine learning tool for classification. It supports CatBoost, LightGBM, XGBoost and DNN(PyTorch-based). 
 
----
+
 # Setup
 
 ## Linux OS 
@@ -73,7 +71,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 [optional] $ sh install.sh
 ```
 
----
+
 # information
 
 ## Cuda version 
@@ -165,7 +163,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
 - binary classification, multi classification에 상관없이 모든 metric 파일은 class의 개수대로 생성됩니다.
 - `catboost_info` 파일의 경우 catboost 패키지 자체에서 생성됩니다.
 
----
+
 
 # example
 
@@ -345,7 +343,7 @@ explainer = exp.FeatureImportance(ai_method=MODEL, trained_model=clf, xai_method
 exp_result = explainer.explain(X_train, y_train, RESULT_PATH, feature_names=list(X_train_features))
 ```
 
----
+
 
 # user guide
 
