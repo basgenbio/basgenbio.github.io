@@ -35,6 +35,8 @@ categories: deepas
 - [User Guide](#user-guide)
   - [`get_base_path`](#get_base_path)
   - [`config`](#config)
+  - [`set_device`](#set_device)
+  - [`make_folder`](#make_folder)
   - [`read_data`](#read_data)
   - [`split_label`](#split_label)
   - [`check_na`](#check_na)
@@ -45,7 +47,11 @@ categories: deepas
   - [`merge_data`](#merge_data)
   - [`convert_feature_to_num`](#convert_feature_to_num)
   - [`convert_df_to_np`](#convert_df_to_np)
+  - [`convert_np_to_df`](#convert_np_to_df)
+  - [`convert_ts_to_df`](#convert_ts_to_df)
+  - [`convert_to_ts`](#convert_to_ts)
   - [`save`](#save)
+  - [`save_model_object`](#save_model_object)
   - [`tune_model`](#tune_model)
   - [`create_model`](#create_model)
     - [`predict`](#predict)
@@ -393,6 +399,34 @@ Config(
 - `n_epochs`: default=`20`. DNN 모델에서 사용할 학습의 횟수
 - `verbose`: default=`1`. DNN 모델에서 지정할 verbosity
 
+## set_device
+모델이 사용할 device 할당. 주로 GPU 할당 시 사용 
+```python
+set_device(
+    model: str,
+    device_type: str = None,
+    device_id: int = 0,
+    seed: int = 42
+) -> str
+```
+
+#### Parameters
+- model: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
+- device_type: default=`None->cpu`; `gpu`, `cpu`
+- device_id: default=`0`. gpu 번호를 지정
+- seed: default=`42`
+
+## make_foler
+경로에 따라 일련의 폴더 생성. 해당 경로에 존재하는 폴더의 경우 생성하지 않음 
+```python
+make_folder(
+    folderpath: str
+) -> None
+```
+
+#### Parameters
+- `folderpath`: 생성할 폴더의 경로
+
 ## read_data
 지정된 경로를 입력받아 데이터를 읽고 padnas.DataFrame 타입으로 반환
 
@@ -551,6 +585,41 @@ convert_df_to_np(
 #### Parameters
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
 
+## convert_np_to_df
+numpy.ndarray 타입의 데이터를 pandas.DataFrame 타입의 데이터로 변환
+```python
+convert_np_to_df(
+    np: ndarray
+) -> DataFrame
+```
+
+#### Parameters
+- `np`: numpy.ndarray 타입의 데이터
+
+## convert_ts_to_df
+torch.Tensor 타입의 데이터를 pandas.DataFrame 타입의 데이터로 변환
+```python
+convert_ts_to_df(
+    ts: Tensor
+) -> DataFrame
+```
+
+#### Parameters
+- `ts`: torch.Tensor 타입의 데이터
+
+## convert_to_ts
+torch.Tensor 타입의 데이터를 적합한 타입의 데이터로 변환. PyTorch는 label과 data의 서로 다른 타입을 요구하며, 이를 처리하는 메소드
+```python
+convert_to_ts(
+    data = None,
+    data_type: str = None
+) -> Tensor
+```
+
+#### Parameters
+- data: default=`None`
+- data_type: default=`None`
+
 ## save
 dict 타입의 데이터를 파일 형식으로 저장 및 pandas.DataFrame 타입의 데이터로 반환
 ```python
@@ -589,6 +658,23 @@ save(
 - `force_drop_last_row`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 마지막 행 강제 제거
 - `force_prohibit_drop_index_col`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 index column 강제 제거 방지. 해당 옵션은 `force_drop_index_col`보다 높은 우선순위를 가지며, `True`일 경우 `force_drop_index_col=False`가 됨
 - `force_prohibit_save`: default=`False`. 결과 파일 저장 방지 옵션
+
+## save_model_object
+학습이 완료된 모델을 저장. CatBoost, LightGBM, XGBoost에 해당
+```python
+save_model_object(
+    model: str,
+    model_object,
+    result_path: str,
+    save_model: bool = True,
+) -> None
+```
+
+#### Parameters
+- model: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
+- model_object: CatBoost, LightGBM, XGBoost model object. 
+- result_path: 모델 파일을 저장할 경로 지정
+- save_model: default=`True`. True일 경우 모델을 저장
 
 ## tune_model
 hyperparameter tuning 수행 및 결과 반환/파일 저장
@@ -707,9 +793,9 @@ train_model(
 ## get_metric
 ```python
 def get_metric(
-        y_val,
-        y_pred,
-        metric: str = f1_score
+    y_val,
+    y_pred,
+    metric: str = f1_score
 )
 ```
 #### Parameters
