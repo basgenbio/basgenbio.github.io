@@ -293,7 +293,7 @@ clf = create_model(
 - 모델의 학습을 위해 `train_model` 메소드를 호출합니다.
 - 학습이 끝난 후에 반환되는 값은 예측값과 예측확률값, 학습이 완료된 모델입니다.
 - 예측값과 예측확률값은 모델의 성능 평가에서 활용됩니다.
-- 학습이 완료된 모델은 XAI에서 활용됩니다.
+- 학습이 완료된 모델은 XAI 단계에서 활용됩니다.
 
 ```python
 y_pred, y_probas, trained_model = train_model(
