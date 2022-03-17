@@ -550,7 +550,7 @@ convert_df_to_np(
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
 
 ## tune_model
-hyperparameter tuning 수행
+hyperparameter tuning 수행 및 결과 반환/파일 저장
 
 ```python
 tune_model(
