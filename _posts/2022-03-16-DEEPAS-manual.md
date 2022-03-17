@@ -8,9 +8,6 @@ categories: deepas
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 # Contents
 - [introduction](#introduction)
 - [setup](#setup)
@@ -83,10 +80,11 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 - DNN (PyTorch-based)
 ## hyperparameter search space format 
 - 지원하는 모델 중 ML 모델은 각 모델별로 해당 모델에 적합한 하이퍼파라미터를 입력해야 합니다. 각 모델별 Documentation을 참고하시기 바랍니다.
-- CatBoost document: https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier
-- LightGBM document: https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html
-- XGBoost document: https://xgboost.readthedocs.io/en/stable/parameter.html
+- [CatBoost document]
+- [LightGBM document]
+- [XGBoost document]
 ### bayesian 
+
 ```python
 {
     'n_estimators': [200, 300],
@@ -96,6 +94,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 ```
 bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
 ### grid
+
 ```python
 {
     'n_estimators': [100, 200, 300, 1000],
@@ -106,6 +105,7 @@ bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값
 grid 방식의 하이퍼파라미터 search space는 위와 같이 일련의 값들을 리스트 또는 튜플의 형태로 입력해야 합니다.
 ## dnn hyperparameter tuning
 DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값에 따라 `dropout` 값과 `activation_function` 값 값의 개수를 `n_layers`의 값과 일치시켜야 합니다.
+
 ```python
 {
     'optimizer': 'Adam',
@@ -116,6 +116,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
     'activation_function': ['ReLU', 'ReLU', 'ReLU'] # 3개
 }
 ```
+
 ### dnn hyperparameter
 - DNN의 경우 다음의 하이퍼파라미터를 조정할 수 있습니다. **아래 명시된 이름 이외의 다른 명칭은 쓸 수 없습니다.**
   - `optimizer`
@@ -177,6 +178,7 @@ df = read_data(DATASETPATH, seperator=SEP)
 
 ## data preprocessing
 데이터를 전처리 하기 위한 기본적인 메소드들을 제공하고 있습니다.
+
 ```python
 # label과 data의 분리
 X, y = split_label(df, target=TARGET)
@@ -210,15 +212,14 @@ cat_dict_train, y_train_df = convert_feature_to_num(feature=y_train_df)
 
 # pandas.DataFrame 타입의 데이터를 numpy.ndarray 타입의 데이터로 변환
 X_train_np, X_train_features = convert_df_to_np(X_train_df)
-
-
 ```
 
 ## hyperparamter tuning
-- 하이퍼파라미터 튜닝을 위해서는 deepas의 tune 내의 메소드를 호출합니다. tune_model을 호출하는 즉시 tuning을 수행하기 위한 머신러닝/딥러닝 모델을 생성하고 tuning 작업까지 완료되며, 그 결과를 파일로 저장함과 동시에 사용자에게 결과를 반환합니다.
+- 하이퍼파라미터 튜닝을 위해서는 deepas의 `tune` 내의 메소드를 호출합니다. `tune_model을` 호출하는 즉시 tuning을 수행하기 위한 머신러닝/딥러닝 모델을 생성하고 tuning 작업까지 완료되며, 그 결과를 파일로 저장함과 동시에 사용자에게 결과를 반환합니다.
 - 지원하는 하이퍼파라미터 튜닝 방식은 `grid`와 `bayesian`입니다. 
 - `grid`와 `bayesian` 모두 Optuna 패키지를 기반으로 합니다.
 - search space와 `n_iter`에 따라 학습 시간이 길어질 수 있습니다.
+
 ```python
 from deepas.tune import *
 
@@ -237,10 +238,12 @@ params = tune_model(
     dnn_config=config
 )
 ```
+
 ## build model
 - 하이퍼파라미터 튜닝 여부와 상관없이 deepas의 모든 ML/DL 모델은 초기 구성이 필요합니다. 
 - 하이퍼파라미터 튜닝을 수행했다면 best parameter를 통해 자동으로 구성된 model 변수를 이용할 수 있습니다.
 - 하이퍼파라미터 튜닝을 수행하지 않았다면 유저가 직접 지정한 custom parameter를 이용하여 모델을 구성하게 됩니다.
+
 ```python
 from deepas.classifier import * 
 
@@ -271,6 +274,7 @@ clf = create_model(
 - 학습이 끝난 후에 반환되는 값은 예측값과 예측확률값, 학습이 완료된 모델입니다.
 - 예측값과 예측확률값은 모델의 성능 평가에서 활용됩니다.
 - 학습이 완료된 모델은 XAI에서 활용됩니다.
+
 ```python
 y_pred, y_probas, trained_model = train_model(
     clf, 
@@ -298,6 +302,7 @@ y_pred, y_probas, trained_model = train_model(
   - F1_Score
   - Specificity
 - 성능 평가 결과는 파일로 저장됩니다.
+
 ```python
 report = evaluate_model(
     model=trained_model, 
@@ -311,6 +316,7 @@ report = evaluate_model(
 - tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, XAI 기법을 사용할 수 있습니다.
 - 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 제공합니다.
 - DNN에서 SHAP을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
+
 ```python
 import deepas.xai.feature_importance as exp
 
@@ -321,6 +327,7 @@ exp_result = explainer.explain(X_train, y_train, RESULT_PATH, feature_names=list
 # user guide
 ## `get_base_path`
 ML/DL 결과를 저장할 기본 경로를 반환
+
 ```python
 get_base_path(
     filepath: str,
@@ -335,6 +342,7 @@ get_base_path(
 
 ## `Config`
 ML/DL 모델을 돌리기 위한 기본 설정으로, GPU 할당 및 DNN 설정을 위해 반드시 필요함
+
 ```python
 Config(
     model: str = None,
@@ -348,6 +356,7 @@ Config(
     **kwargs
 )
 ```
+
 **Parameters**
 - `model`: default=`None`. 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `device`: default=`cpu`. 사용할 장치의 종류; `gpu`, `cpu`
@@ -360,6 +369,7 @@ Config(
 
 ## `read_data`
 지정된 경로를 입력받아 데이터를 읽고 padnas.DataFrame 타입으로 반환
+
 ```python
 read_data(
     filepath: str,
@@ -370,6 +380,7 @@ read_data(
     reset_index_flag: bool = False,
 ) -> DataFrame
 ```
+
 **Parameters**
 - `filepath`: 데이터셋 경로
 - `seperator`: defulat=`\t`. 구분자
@@ -380,28 +391,33 @@ read_data(
 
 ## `split_label`
 target 변수와 데이터를 분리
+
 ```python
 split_label(
     data: DataFrame,
     target: str
 )-> (DataFrame, DataFrame)
 ```
+
 **Parameters**
 - `data`: pandas.DataFrame 타입의 데이터
 - `target`: 예측 대상이 되는 target 변수
 
 ## `check_na`
 NaN값 확인
+
 ```python
 check_na(
     data: DataFrame,
 ) -> (bool, int)
 ```
+
 **Parameters**
 - `data`: pandas.DataFrame 타입의 데이터
 
 ## `fill_na`
 NaN값 처리
+
 ```python
 fill_na(
     data: DataFrame,
@@ -410,6 +426,7 @@ fill_na(
     del_na_by_row: bool = False
 ) -> DataFrame
 ```
+
 **Parameters**
 - `data`: pandas.DataFrame 타입의 데이터
 - `fill_na`: default=`numpy.nan`. NaN값을 대체할 값
@@ -418,6 +435,7 @@ fill_na(
 
 ## `split_data`
 train 데이터와 test 데이터를 분리
+
 ```python
 split_data(
     data: DataFrame,
@@ -427,6 +445,7 @@ split_data(
     random_state: int = 42
 ) -> (DataFrame, DataFrame, DataFrame, DataFrame)
 ```
+
 **Parameters**
 - `data`: pandas.DataFrame 타입의 데이터
 - `target`: 예측 대상이 되는 target 변수
@@ -436,6 +455,7 @@ split_data(
 
 ## `extract_column`
 특정 column 추출
+
 ```python
 def extract_column(
     df: DataFrame,
@@ -443,6 +463,7 @@ def extract_column(
     dtype: str = 'int'
 ) -> DataFrame
 ```
+
 **Parameters**
 - `df`: pandas.DataFrame 타입의 데이터
 - `columns`: 추출할 column의 이름
@@ -450,18 +471,21 @@ def extract_column(
 
 ## `drop_column`
 특정 column 제거
+
 ```python
 drop_column(
     df: DataFrame,
     columns
 ) -> DataFrame
 ```
+
 **Parameters**
 - `df`: pandas.DataFrame 타입의 데이터
 - `columns`: 제거할 column의 이름
 
 ## `merge_data`
 pandas.DataFrame 타입의 두 tabular data를 결합
+
 ```python
 merge_data(
     X: DataFrame,
@@ -470,6 +494,7 @@ merge_data(
     join: str = 'inner'
 ) -> DataFrame
 ```
+
 **Parameters**
 - `X`: pandas.DataFrame 타입의 데이터
 - `y`: pandas.DataFrame 타입의 데이터
@@ -478,26 +503,31 @@ merge_data(
 
 ## `convert_feature_to_num`
 category 타입의 데이터값을 숫자로 변환
+
 ```python
 convert_feature_to_num(
     feature: DataFrame
 ) -> (DataFrame, DataFrame)
 ```
+
 **Parameters**
 - `feature`: category 또는 str 타입의 데이터가 있는 pandas.Series 또는 pandas.DataFrame 타입의 데이터
 
 ## `convert_df_to_np`
 pandas.DataFrame 타입의 데이터를 numpy.ndarray 타입의 데이터로 변환
+
 ```python
 convert_df_to_np(
     df: DataFrame = None
 ) -> (ndarray, list)
 ```
+
 **Parameters**
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
 
 ## `tune_model`
 hyperparameter tuning 수행
+
 ```python
 tune_model(
     X_train: DataFrame,
@@ -515,6 +545,7 @@ tune_model(
     dnn_config = None
 )
 ```
+
 **Parameters**
 - `X_train`: pandas.DataFrame 타입의 데이터
 - `y_train`: pandas.DataFrame 타입의 데이터
@@ -532,6 +563,7 @@ tune_model(
 
 ## `create_model`
 ML/DL 모델 생성
+
 ```python
 create_model(
     model: str,
@@ -545,6 +577,7 @@ create_model(
     hyperparameter_flag: bool = False
 )
 ```
+
 **Parameters**
 - `model`: 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `params`: default=`None`. 모델 하이퍼파라미터. 사용자 지정 custom hyperparameter 또는 hyperparameter tuning을 이용해 찾아낸 best hyperparameter가 이에 해당
@@ -558,26 +591,31 @@ create_model(
 
 ### `predict`
 ML/DL 모델을 이용하여 예측 수행
+
 ```python
 model.predict(
     X_val
 )
 ```
+
 **Parameters**
 - `X_val`: pandas.DataFrame 타입의 데이터
 
 ### `predict_proba`
 ML/DL 모델로부터 예측 확률 반환
+
 ```python
 model.predict_proba(
     X_val
 )
 ```
+
 **Parameters**
 - `X_val`: pandas.DataFrame 타입의 데이터
 
 ## `train_model`
 ML/DL 모델 학습 수행
+
 ```python
 train_model(
     model,
@@ -590,6 +628,7 @@ train_model(
     dnn_config=None
 )
 ```
+
 **Parameters**
 - `model`: `create_model` 메소드에 의해 생성된 모델
 - `X_train`: pandas.DataFrame 타입의 데이터
@@ -602,6 +641,7 @@ train_model(
 
 ## `evaluate_model`
 ML/DL 모델 평가 수행
+
 ```python
 evaluate_model(
     model,
@@ -611,6 +651,7 @@ evaluate_model(
     cat_dict_train: dict = None
 )
 ```
+
 **Parameters**
 - `model`: 학습이 완료된 모델
 - `X_val`: pandas.DataFrame 타입의 데이터
@@ -629,6 +670,7 @@ FeatureImportance(
     gpu_id: int = None
 )
 ```
+
 **Parameters**
 - `ai_method`: default=`dnn`. 사용할 모델의 종류; `catboost`, `lightgbm`, `xgboost`, `dnn`
 - `trained_model`: default=`None`. 학습이 완료된 모델을 지정
@@ -638,6 +680,7 @@ FeatureImportance(
 
 ### `explain`
 XAI를 수행
+
 ```python
 FeatureImportance.explain(
     X: DataFrame,
@@ -648,6 +691,7 @@ FeatureImportance.explain(
     permutation_importance_n_repeats: int = 150
 )
 ```
+
 **Parameters**
 - `X`: pandas.DataFrame 타입의 데이터
 - `y`: pandas.DataFrame 타입의 데이터
@@ -656,7 +700,9 @@ FeatureImportance.explain(
 - `feature_names`: default=`None`. 해석할 feature 리스트로서, `X` 파라미터의 feature의 리스트를 지정
 - `permutation_importance_n_repeats`: default=`150`. [sklearn.inspection.permutation_importance] 참고
 
-
+[CatBoost document]: https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier 
+[LightGBM document]: https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html
+[XGBoost document]: https://xgboost.readthedocs.io/en/stable/parameter.html
 [pandas.read_csv]: https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
 [pandas.DataFrame.set_index]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.set_index.html
 [sklearn.model_selection.train_test_split]: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
