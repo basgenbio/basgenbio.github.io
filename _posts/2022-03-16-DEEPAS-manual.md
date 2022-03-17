@@ -52,8 +52,8 @@ categories: deepas
   - [`evaluate_model`](#evaluate_model)
   - [`FeatureImportance`](#FeatureImportance)
     - [`explain`](#explain)
----
 
+---
 
 # Introduction
 
