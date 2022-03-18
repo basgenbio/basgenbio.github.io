@@ -88,6 +88,7 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 ## GPU supported 
 - Usage GPU of LightGBM is not supported.
 - GPU is available in CatBoost, XGBoost and DNN.
+
 ## Supported ML/DL model 
 - CatBoost
 - LightGBM
@@ -140,7 +141,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
 ```
 
 ### DNN hyperparameter
-- DNN의 경우 다음의 하이퍼파라미터를 조정할 수 있습니다. **아래 명시된 이름 이외의 다른 명칭은 쓸 수 없습니다.**
+- DNN의 경우 다음의 하이퍼파라미터를 조정할 수 있습니다. **아래 명시된 하이퍼파라미터 명칭 이외의 다른 명칭은 쓸 수 없습니다.**
   - `optimizer`
     - 딥러닝의 최적화 알고리즘으로서, 가능한 값은 다음과 같습니다.
       - [`Adam`, `RMSprop`, `SGD`, `Adadelta`, `AdamW`, `Adamax`, `ASGD`, `LBFGS`, `NAdam`, `RAdam`, `Rprop`]
@@ -167,7 +168,7 @@ DNN에서 하이퍼파라미터를 입력하기 위해서는 `n_layers`의 값�
     - 해당 값은 `n_layers` 값과 동일한 개수를 가져야 합니다. 
 
 ## result
-- 예제 코드대로 실행할 시, deepas 분석 결과는 `get_base_path`메소드에 의해 지정된 경로에 저장되며, 프로그램 실행 중 저장되는 파일이 있을 경우 해당 파일의 경로가 뜹니다.
+- 예제 코드대로 실행할 시, deepas 분석 결과는 `get_base_path`메소드에 의해 지정된 경로에 저장되며, 프로그램 실행 중 저장되는 파일이 있을 경우 해당 파일의 경로가 터미널 또는 jupyter notebook 상에서 확인 가능합니다.
 - binary classification, multi classification에 상관없이 모든 metric 파일은 class의 개수대로 생성됩니다.
 - `catboost_info` 파일의 경우 catboost 패키지 자체에서 생성됩니다.
 
@@ -181,7 +182,7 @@ $ python
 ```
 
 ## initial setting
-config 선언 작업은 반드시 필요하며, 예제 코드에 포함된 형식대로 작성해주시기 바랍니다.
+config 선언 작업은 반드시 필요합니다.
 
 ```python
 config = Config(
@@ -240,10 +241,11 @@ X_train_np, X_train_features = convert_df_to_np(X_train_df)
 ```
 
 ## hyperparamter tuning
-- 하이퍼파라미터 튜닝을 위해서는 deepas의 `tune` 내의 메소드를 호출합니다. `tune_model`을 호출하는 즉시 tuning을 수행하기 위한 머신러닝/딥러닝 모델을 생성하고 tuning 작업까지 완료되며, 그 결과를 파일로 저장함과 동시에 사용자에게 결과를 반환합니다.
+- 하이퍼파라미터 튜닝을 위해서는 `tune_model`메소드를 호출합니다. `tune_model`을 호출하는 즉시 tuning을 수행하기 위한 머신러닝/딥러닝 모델을 생성하고 tuning 작업이 이루어집니다.
+- 튜닝이 완료된 후에는 그 결과를 파일로 저장함과 동시에 사용자에게 튜닝의 결과를 반환합니다.
 - 지원하는 하이퍼파라미터 튜닝 방식은 `grid`와 `bayesian`입니다. 
 - `grid`와 `bayesian` 모두 Optuna 패키지를 기반으로 합니다.
-- search space와 `n_iter`에 따라 튜닝 시간이 길어질 수 있습니다.
+- search space의 범위와 `n_iter`에 따라 튜닝 시간이 길어질 수 있습니다.
 
 ```python
 from deepas.tune import *
@@ -265,11 +267,9 @@ params = tune_model(
 ```
 
 ## build model
-- 하이퍼파라미터 튜닝 여부와 상관없이 deepas의 모든 ML/DL 모델은 초기 구성이 필요합니다. 
-  - 하이퍼파라미터 튜닝 수행 시, 내부적으로 모델을 생성 후 search space 범위 내의 하이퍼파라미터를 선정하여 모델을 구성하게 됩니다.
-  - 하이퍼파라미터 튜닝을 수행하지 않을 시, 유저가 직접 모델을 구성해야 합니다.
-- 하이퍼파라미터 튜닝을 수행했다면 best parameter로 자동으로 model이 구성됩니다.
-- 하이퍼파라미터 튜닝을 수행하지 않았다면 유저가 직접 지정한 custom parameter를 이용하여 모델을 구성하게 됩니다.
+- 하이퍼파라미터 튜닝 수행 시, 튜닝 object 내부에서 search space 범위 내의 하이퍼파라미터를 선정하여 ML/DL 모델을 구성하게 됩니다.
+- 하이퍼파라미터 튜닝을 수행하지 않을 시, 유저가 직접 지정한 custom parameter를 이용하여 모델을 구성하게 됩니다.
+- 하이퍼파라미터 튜닝을 수행했다면 best hyperparameter로 model을 구성할 수 있도록 반환된 일련의 best hyperparameter로 모델을 구성하면 됩니다.
 
 ```python
 from deepas.classifier import * 
@@ -298,9 +298,9 @@ clf = create_model(
 
 ## training
 - 모델의 학습을 위해 `train_model` 메소드를 호출합니다.
-- 학습이 끝난 후에 반환되는 값은 예측값과 예측확률값, 학습이 완료된 모델입니다.
-- 예측값과 예측확률값은 모델의 성능 평가에서 활용됩니다.
-- 학습이 완료된 모델은 XAI 단계에서 활용됩니다.
+- 학습이 끝난 후에 반환되는 값은 예측값과 예측 확률값, 학습이 완료된 모델입니다.
+- 예측값과 예측 확률값은 모델의 성능 평가에 활용됩니다.
+- 학습이 완료된 모델은 모델 해석(XAI) 단계에서 활용됩니다.
 
 ```python
 y_pred, y_probas, trained_model = train_model(
@@ -317,7 +317,7 @@ y_pred, y_probas, trained_model = train_model(
 
 ## evaluation
 - 학습이 끝난 모델에 대한 성능 평가 지표를 확인할 수 있습니다.
-- `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 주요 지표들은 다음과 같습니다.
+- `y_pred`와 `y_proba` 값을 기반으로 주요 지표들을 정량화합니다. 제공되는 지표들은 다음과 같습니다.
   - True Positive(TP)의 개수
   - False Positive(FP)의 개수
   - True Negative(TN)의 개수
@@ -340,9 +340,9 @@ report = evaluate_model(
 ```
 
 ## explainable ai
-- tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, XAI 기법을 사용할 수 있습니다.
+- tabular data의 어떤 feature가 모델에 가장 큰 영향을 끼치는지를 파악할 수 있는, 모델 해석(XAI) 기법을 사용할 수 있습니다.
 - 제공되는 기법은 SHAP, Permutation Importance이며, CatBoost, LightGBM, XGBoost에서는 tree-intrinsic feature importance를 추가적으로 사용할 수 있습니다.
-- DNN에서 SHAP을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
+- DNN에서 SHAP 기법을 이용할 경우, activation function에 대한 warning이 뜰 수 있습니다.
 
 ```python
 import deepas.xai.feature_importance as exp
