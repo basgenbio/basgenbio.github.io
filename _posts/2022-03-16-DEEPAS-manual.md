@@ -45,6 +45,9 @@ categories: deepas
   - [`merge_data`](#merge_data)
   - [`convert_feature_to_num`](#convert_feature_to_num)
   - [`convert_df_to_np`](#convert_df_to_np)
+  - [`convert_np_to_df`](#convert_np_to_df)
+  - [`convert_ts_to_df`](#convert_ts_to_df)
+  - [`convert_to_ts`](#convert_to_ts)
   - [`save`](#save)
   - [`save_model_object`](#save_model_object)
   - [`tune_model`](#tune_model)
@@ -551,6 +554,44 @@ convert_df_to_np(
 
 #### Parameters
 - `df`: default=`None`. pandas.DataFrame 타입의 데이터
+
+## convert_np_to_df
+numpy.ndarray 타입의 데이터를 pandas.DataFrame 타입의 데이터로 변환
+
+```python
+convert_np_to_df(
+    np: ndarray
+) -> DataFrame
+```
+
+#### Parameters
+- `np`: numpy.ndarray 타입의 데이터
+
+## convert_ts_to_df
+torch.Tensor 타입의 데이터를 pandas.DataFrame 타입의 데이터로 변환
+
+```python
+convert_ts_to_df(
+    ts: Tensor
+) -> DataFrame
+```
+
+#### Parameters
+- `ts`: torch.Tensor 타입의 데이터
+
+## convert_to_ts
+torch.Tensor 타입의 데이터를 적합한 타입의 데이터로 변환. PyTorch는 label과 data의 서로 다른 타입을 요구하며, 이를 처리하는 메소드
+
+```python
+convert_to_ts(
+    data = None,
+    data_type: str = None
+) -> Tensor
+```
+
+#### Parameters
+- data: default=`None`
+- data_type: default=`None`
 
 ## save
 dict 타입의 데이터를 파일 형식으로 저장 및 pandas.DataFrame 타입의 데이터로 반환
