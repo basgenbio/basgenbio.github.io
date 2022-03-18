@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "DEEPAS(v0.1) manual"
-date:   2022-03-16 17:53:11 +0900
+title:  "DEEPAS_v0.1 Documentation"
+date:   2022-03-18 10:10:11 +0900
 categories: deepas
 ---
 
