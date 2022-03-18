@@ -105,8 +105,8 @@ $ pip install torch==1.10.0+cu111 -f torch-1.10.0+cu111-cp37-cp37m-linux_x86_64.
 }
 ```
 
-bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
-다만, 특정 하이퍼파라미터를 `[3]`과 같이 grid search 
+- bayesian 방식의 하이퍼파라미터 search space는 위와 같이 최소값과 최대값을 리스트 또는 튜플의 형태로 입력해야 합니다.
+
 ### grid
 
 ```python
@@ -394,7 +394,7 @@ Config(
 - `verbose`: default=`1`. DNN 모델에서 지정할 verbosity
 
 ## read_data
-지정된 경로를 입력받아 데이터를 읽고 padnas.DataFrame 타입으로 반환
+지정된 경로를 입력받아 데이터를 읽고 pandas.DataFrame 타입으로 반환
 
 ```python
 read_data(
