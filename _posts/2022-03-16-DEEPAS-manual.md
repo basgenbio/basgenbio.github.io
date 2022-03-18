@@ -270,6 +270,7 @@ params = tune_model(
 - 하이퍼파라미터 튜닝 수행 시, 튜닝 object 내부에서 search space 범위 내의 하이퍼파라미터를 선정하여 ML/DL 모델을 구성하게 됩니다.
 - 하이퍼파라미터 튜닝을 수행하지 않을 시, 유저가 직접 지정한 custom parameter를 이용하여 모델을 구성하게 됩니다.
 - 하이퍼파라미터 튜닝을 수행했다면 best hyperparameter로 model을 구성할 수 있도록 반환된 일련의 best hyperparameter로 모델을 구성하면 됩니다.
+- 과거에 학습이 완료되어 저장된 모델을 사용하고자 할 경우, 해당 모델에 적합한 명칭을 `model` 파라미터에 기입해야 합니다. 가능한 모델 종류는 `catboost`, `lightgbm`, `xgboost`, `dnn`입니다.
 
 ```python
 from deepas.classifier import * 
@@ -788,7 +789,7 @@ def get_metric(
 #### Parameters
 - `y_val`: model의 예측 값
 - `y_pred`: model의 예측 확률값
-- `metric`: default=`f1_score`. 평가할 지표. 현재 f1_score만 가능  
+- `metric`: default=`f1_score`. 평가할 지표. 현재 f1_score만 가능
 
 ## evaluate_model
 ML/DL 모델 평가 수행
