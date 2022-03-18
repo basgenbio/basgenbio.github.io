@@ -46,6 +46,7 @@ categories: deepas
   - [`convert_feature_to_num`](#convert_feature_to_num)
   - [`convert_df_to_np`](#convert_df_to_np)
   - [`save`](#save)
+  - [`save_model_object`](#save_model_object)
   - [`tune_model`](#tune_model)
   - [`create_model`](#create_model)
     - [`predict`](#predict)
@@ -589,6 +590,24 @@ save(
 - `force_drop_last_row`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 마지막 행 강제 제거
 - `force_prohibit_drop_index_col`: default=`False`. pandas.DataFrame으로 변환된 데이터에서 index column 강제 제거 방지. 해당 옵션은 `force_drop_index_col`보다 높은 우선순위를 가지며, `True`일 경우 `force_drop_index_col=False`가 됨
 - `force_prohibit_save`: default=`False`. 결과 파일 저장 방지 옵션
+
+## save_model_object
+학습이 완료된 모델을 저장. CatBoost, LightGBM, XGBoost에 해당
+
+```python
+save_model_object(
+    model: str,
+    model_object,
+    result_path: str,
+    save_model: bool = True,
+) -> None
+```
+
+#### Parameters
+- model: 모델 이름; `catboost`, `lightgbm`, `xgboost`, `dnn`
+- model_object: CatBoost, LightGBM, XGBoost model object. 
+- result_path: 모델 파일을 저장할 경로 지정
+- save_model: default=`True`. `True`일 경우 모델을 저장
 
 ## tune_model
 hyperparameter tuning 수행 및 결과 반환/파일 저장
