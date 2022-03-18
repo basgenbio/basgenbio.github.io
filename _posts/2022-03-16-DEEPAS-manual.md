@@ -35,6 +35,7 @@ categories: deepas
 - [User Guide](#user-guide)
   - [`get_base_path`](#get_base_path)
   - [`config`](#config)
+  - [`make_folder`](#make_folder)
   - [`read_data`](#read_data)
   - [`split_label`](#split_label)
   - [`check_na`](#check_na)
@@ -396,6 +397,18 @@ Config(
 - `batch_size`: default=`64`. DNN 모델에서 사용할 batch의 크기
 - `n_epochs`: default=`20`. DNN 모델에서 사용할 학습의 횟수
 - `verbose`: default=`1`. DNN 모델에서 지정할 verbosity
+
+## make_folder
+경로에 따라 일련의 폴더 생성. 해당 경로에 존재하는 폴더의 경우 생성하지 않음 
+
+```python
+make_folder(
+    folderpath: str
+) -> None
+```
+
+#### Parameters
+- `folderpath`: 생성할 폴더의 경로
 
 ## read_data
 지정된 경로를 입력받아 데이터를 읽고 pandas.DataFrame 타입으로 반환
