@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DEEPAS_v0.1 Documentation"
+title:  "DEEPAS_v1.0 Documentation"
 date:   2022-03-16 10:10:11 +0900
 categories: deepas
 ---
@@ -501,7 +501,7 @@ split_data(
 특정 column 추출
 
 ```python
-def extract_column(
+extract_column(
     df: DataFrame,
     columns,
     dtype: str = 'int'
@@ -780,7 +780,7 @@ train_model(
 
 ## get_metric
 ```python
-def get_metric(
+get_metric(
         y_val,
         y_pred,
         metric: str = f1_score
