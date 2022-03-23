@@ -16,4 +16,4 @@ categories: deepas
 - 클래스별 metric 파일 생성 시, 클래스의 이름을 파일명에 명시하도록 수정되었습니다.
 - 리눅스 명령창에서 옵션을 주는 방식으로 실행 가능한 방식이 추가되었습니다. 기존의 방식과 명령창 방식 모두 가능합니다. 자세한 실행 방법에 대하여 [DEEPAS-v1.1 Documentation]을 참고해주시기 바랍니다.
 
-[DEEPAS-v1.1 Documentation]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
+[DEEPAS-v1.1 Documentation]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html 
